@@ -74,6 +74,11 @@ router.get('/callback', function(req, res, next) {
     method: 'POST'
   };
 
+  if (cfg.debug) {
+    console.log('\n\n[callback]');
+    console.log(req.query);
+  }
+
   try {
     request({
       url: request_data_oauth.url,
