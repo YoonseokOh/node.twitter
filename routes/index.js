@@ -190,9 +190,17 @@ router.get('/twitter', function(req, res, next) {
   res.render('twitter');
 });
 
+function get_challenge_response(crc_token, consumer_secret) {
+  return crypto.createHmac('sha256', consumer_secret).update(crc_token).digest('base64');
+}
+
 // Webhook
-router.get('/webhook/twitter', function(req, res, next) {
-  res.json('OK');
+router.get('/webhooks/twitter', function(req, res, next) {
+  hash = get_challenge_response(req.query.crc_token || '', cfg.secretkey);
+
+  res.json({
+    response_token: `sha256=${hash}`
+  });
 });
 
 module.exports = router;
