@@ -203,4 +203,14 @@ router.get('/webhooks/twitter', function(req, res, next) {
   });
 });
 
+// Webhook post
+router.post('/webhooks/twitter', function(req, res, next) {
+  if (cfg.debug) {
+    console.log('\n\n[webhooks] post');
+    console.log(req.body);
+  }
+
+  res.json("OK");
+});
+
 module.exports = router;
